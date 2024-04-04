@@ -86,9 +86,8 @@ for (WebElement ratingElement : ratingsList) {
 
     @Test
     public void testCase03(){
-
         try {
-            WebElement searchBox = driver.findElement(By.xpath("//input[@class='Pke_EE']"));
+            WebElement searchBox = driver.findElement(By.xpath("//input[@type='text']"));
 
         SeleniumWrapper.clickAction(searchBox, driver);
 
@@ -98,18 +97,42 @@ for (WebElement ratingElement : ratingsList) {
 
         SeleniumWrapper.clickAction(searchbtn, driver);
 
-        List<WebElement> discountList = driver.findElements(By.xpath("//div[@class='_2kHMtA']//div[@class='_3LWZlK']"));
-         int countOfDiscount = 0;
+        WebElement Iphonetext = driver.findElement(By.xpath("//span[text()='Iphone']"));
+
+        String getIphoneText = Iphonetext.getText();
+
+        Assert.assertEquals(getIphoneText, "Iphone");
+
+
+        Thread.sleep(3000);
+
+        List<WebElement> discountList = driver.findElements(By.xpath("//div[@class='_3pLy-c row']//div[@class='_3Ay6Sb']"));
+        int countOfDiscount = 0;
+        WebElement productTitle;
+        String getProductTitle = " ";
 
 for (WebElement ratingElement : discountList) {
-    // Assuming the text of rating WebElement can be extracted as follows
-    String Discountrate = ratingElement.findElement(By.xpath("//div[@class='_2kHMtA']//div[@class='_3LWZlK']")).getText();
-    
-    if (Discountrate.equals(discountList)) {
-        countOfDiscount++;
-    }
-            
+    try {
+        String discountRate = ratingElement.getText();
+        // Assuming the text of the discount WebElement represents the discount rate
+
+        // Extracting the numeric part of the discount rate
+        String numericDiscount = discountRate.replaceAll("[^0-9]", "");
+        int discountValue = Integer.parseInt(numericDiscount);
+
+        if (discountValue > 17) {
+            productTitle = driver.findElement(By.xpath("//div[@class='_3pLy-c row']//div[@class='_4rR01T']"));
+            getProductTitle = productTitle.getText();
+            System.out.println("Product titles above 17% Discount: " + getProductTitle);
+            countOfDiscount++;
         }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+ System.out.println("Product titles above 17% Discount: " + getProductTitle);
+ System.out.println("Total Count above 17% Discount: " + countOfDiscount);
 
     }
          catch (Exception e) {
@@ -117,6 +140,4 @@ for (WebElement ratingElement : discountList) {
             e.printStackTrace();
         }
     }
-
-
 }
