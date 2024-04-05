@@ -1,11 +1,16 @@
 package demo;
 
 
+import java.time.Duration;
 import java.util.List;
 
+import org.checkerframework.checker.units.qual.s;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -139,5 +144,69 @@ for (WebElement ratingElement : discountList) {
             // TODO: handle exception
             e.printStackTrace();
         }
+    }
+
+
+    @Test
+    public void testCase04(){
+
+        try {
+            WebElement searchBox = driver.findElement(By.xpath("//input[@type='text']"));
+
+        SeleniumWrapper.clickAction(searchBox, driver);
+
+        SeleniumWrapper.enterText(searchBox, "Coffee Mug");
+
+        WebElement searchbtn = driver.findElement(By.xpath("//button[@type='submit']"));
+
+        SeleniumWrapper.clickAction(searchbtn, driver);
+
+       List <WebElement> stars = driver.findElements(By.xpath("//div[@class='_2d0we9']//div"));
+
+        for(int i = 0; i< stars.size(); i++){
+         String getStars = stars.get(i).getText();
+         
+         if(getStars.contains("4")){
+            stars.get(i).click();
+            break;
+         }
+    }
+
+    List<WebElement> reviews = driver.findElements(By.xpath("//span[@class='_2_R_DZ']"));
+    Thread.sleep(2000);
+    int count = 1;
+    
+    for (WebElement reviewElement : reviews) {
+        try {
+            Thread.sleep(2000);
+            String discountRate = reviewElement.getText();
+            // Assuming the text of the discount WebElement represents the discount rate
+        
+            // Extracting the numeric part of the discount rate
+            String numericReview = discountRate.replaceAll("[^0-9]", "");
+            int numericReviewValue = Integer.parseInt(numericReview);
+    
+            if (numericReviewValue > 1000 && count < 5) {
+                WebElement productTitle = driver.findElement(By.xpath("(//a[@class='s1Q9rs'])[" + (count + 1) + "]"));
+                String productTitleText = productTitle.getText();
+                WebElement imgURLElement = driver.findElement(By.xpath("//img[@loading='eager']"));
+                String url = imgURLElement.getAttribute("href");
+                System.out.println("URL: " + url);
+                System.out.println("Product Title: " + productTitleText);
+                count++;
+            }
+    
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+        Thread.sleep(2000);
+       
+    } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+
     }
 }
