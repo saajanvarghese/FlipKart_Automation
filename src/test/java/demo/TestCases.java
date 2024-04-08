@@ -4,7 +4,6 @@ package demo;
 import java.time.Duration;
 import java.util.List;
 
-import org.checkerframework.checker.units.qual.s;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -43,9 +42,10 @@ public class TestCases {
         System.out.println("end Test case: testCase01");
     }
 
-    @Test
+    
     public void testCase02(){
 
+        System.out.println("Start Test case: testCase02");
         try {
             WebElement searchBox = driver.findElement(By.xpath("//input[@class='Pke_EE']"));
 
@@ -70,27 +70,37 @@ public class TestCases {
 
         Thread.sleep(3000);
 
-        List<WebElement> ratingsList = driver.findElements(By.xpath("//div[@class='_2kHMtA']//div[@class='_3LWZlK']"));
-         int countOfLowRatings = 0;
+List<WebElement> ratingsList = driver.findElements(By.xpath("//div[@class='_2kHMtA']//div[@class='_3LWZlK']"));
 
-for (WebElement ratingElement : ratingsList) {
-    // Assuming the text of rating WebElement can be extracted as follows
-    float rating = Float.parseFloat(ratingElement.findElement(By.xpath("//div[@class='_2kHMtA']//div[@class='_3LWZlK']")).getText());
-    
-    if (rating <= 4.0) {
-        countOfLowRatings++;
+int countOfLowRatings = 0;
+
+for (int i = 0; i < ratingsList.size(); i++) {
+    try {
+        WebElement ratingElement = ratingsList.get(i);
+        // Assuming the text of rating WebElement can be extracted as follows
+        float rating = Float.parseFloat(ratingElement.getText());
+        
+        if (rating <= 4.0) {
+            countOfLowRatings++;
+        }
+    } catch (NumberFormatException e) {
+        // Handle if the rating cannot be parsed to float
+        e.printStackTrace();
     }
 }
-        
-        System.out.println("Count of ratings less than 4: " + countOfLowRatings);
+
+System.out.println("Count of ratings less than or equal to 4: " + countOfLowRatings);
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
         }
+        System.out.println("End Test case: testCase02");
     }
 
-    @Test
+
+    
     public void testCase03(){
+        System.out.println("Start Test case: testCase03");
         try {
             WebElement searchBox = driver.findElement(By.xpath("//input[@type='text']"));
 
@@ -144,12 +154,15 @@ for (WebElement ratingElement : discountList) {
             // TODO: handle exception
             e.printStackTrace();
         }
+
+        System.out.println("End Test case: testCase03");
     }
 
 
     @Test
     public void testCase04(){
 
+        System.out.println("Start Test case: testCase04");
         try {
             WebElement searchBox = driver.findElement(By.xpath("//input[@type='text']"));
 
@@ -173,12 +186,12 @@ for (WebElement ratingElement : discountList) {
     }
 
     List<WebElement> reviews = driver.findElements(By.xpath("//span[@class='_2_R_DZ']"));
-    Thread.sleep(2000);
+    // Thread.sleep(2000);
     int count = 1;
     
     for (WebElement reviewElement : reviews) {
         try {
-            Thread.sleep(2000);
+            // Thread.sleep(2000);
             String discountRate = reviewElement.getText();
             // Assuming the text of the discount WebElement represents the discount rate
         
@@ -190,10 +203,14 @@ for (WebElement ratingElement : discountList) {
                 WebElement productTitle = driver.findElement(By.xpath("(//a[@class='s1Q9rs'])[" + (count + 1) + "]"));
                 String productTitleText = productTitle.getText();
                 WebElement imgURLElement = driver.findElement(By.xpath("//img[@loading='eager']"));
-                String url = imgURLElement.getAttribute("href");
+                String url = imgURLElement.getAttribute("src");
                 System.out.println("URL: " + url);
                 System.out.println("Product Title: " + productTitleText);
                 count++;
+            }
+
+            if(count >= 5){
+                endTest();
             }
     
         } catch (Exception e) {
