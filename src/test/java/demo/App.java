@@ -19,9 +19,7 @@ public class App {
         tests.testCase04();
 
         //END Tests
-
-
-        tests.endTest(); // End your test by clearning connections and closing browser
+       tests.endTest(); // End your test by clearning connections and closing browser
     }
 
     public static void main(String[] args) throws InterruptedException, MalformedURLException {

@@ -31,7 +31,7 @@ public class TestCases {
 
     }
 
-    @Test
+    @Test(enabled = true)
     public  void testCase01(){
         System.out.println("Start Test case: testCase01");
         //Navigate to Flipkart Website
@@ -41,7 +41,7 @@ public class TestCases {
         System.out.println("end Test case: testCase01");
     }
 
-    
+    @Test(enabled = true)
     public void testCase02(){
 
         System.out.println("Start Test case: testCase02");
@@ -109,8 +109,7 @@ System.out.println("Count of ratings less than or equal to 4: " + countOfLowRati
         System.out.println("End Test case: testCase02");
     }
 
-
-    
+    @Test(enabled = true)
     public void testCase03(){
         System.out.println("Start Test case: testCase03");
         try {
@@ -158,7 +157,7 @@ for (WebElement ratingElement : discountList) {
         int discountValue = Integer.parseInt(numericDiscount);
 
         //Checking if discountValue > 17
-        if (discountValue > 17) {
+        if (discountValue >= 17) {
             productTitle = driver.findElement(By.xpath("//div[@class='_3pLy-c row']//div[@class='_4rR01T']"));
             getProductTitle = productTitle.getText();
             System.out.println("Product titles above 17% Discount: " + getProductTitle);
@@ -181,8 +180,7 @@ for (WebElement ratingElement : discountList) {
         System.out.println("End Test case: testCase03");
     }
 
-
-    @Test
+    @Test(enabled = true)
     public void testCase04(){
 
         System.out.println("Start Test case: testCase04");
@@ -267,6 +265,6 @@ for (WebElement ratingElement : discountList) {
             // TODO: handle exception
             e.printStackTrace();
         }
-
+        System.out.println("End Test case: testCase04");
     }
 }

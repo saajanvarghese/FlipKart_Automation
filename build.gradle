@@ -22,7 +22,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
 
 // https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
-implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.7.0'
+implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.8.0'
 
 
 // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
@@ -45,15 +45,5 @@ test {
         events "passed", "skipped", "failed"
     }
 }
-
-
-
-//task startScript(type:Exec) {
-//    commandLine './selenium-run.sh'
-//}
-
-//run.dependsOn startScript
-
-//test.dependsOn startScript
 
 mainClassName = 'demo.App'

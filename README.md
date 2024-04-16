@@ -36,23 +36,26 @@ git --version
 # gradle version 8.6
 gradle --version
 ```
-
 ```
-# vscode 1.87.2
+# vscode 1.88.1
 git --version
 ```
 ## Required Dependency to run:
 ```
 # WebDriverManager
 # Selenium
+# TestNG
 ```
 ## Instructions to Run the Code:
 ```
 # to build the project
-gradlew build
+gradle build
 ```
-
 ```
 # to run the project
-gradlew run
+gradle run
+```
+```
+# to test the project
+gradle test
 ```
